@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matematika Buah-Buahan</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Fredoka', sans-serif; }
+    .fruit-bounce { animation: bounce 2s infinite; }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .correct-flash { animation: correctPulse 0.6s ease; }
+    @keyframes correctPulse { 0%{transform:scale(1)} 50%{transform:scale(1.1)} 100%{transform:scale(1)} }
+    .wrong-shake { animation: shake 0.5s ease; }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.15); }
+    .card-hover { transition: all 0.3s ease; }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ <script src="/_sdk/telemetry_sdk.js"></script></head>
+ <body class="h-full">
+  <div id="app" class="h-full w-full overflow-auto" style="background: linear-gradient(135deg, #fff8e1 0%, #c8e6c9 50%, #ffecb3 100%);"><!-- Header -->
+   <header class="text-center py-8 px-4">
+    <div class="text-5xl mb-3">
+     🍎🍊🍇🍌🍓
+    </div>
+    <h1 id="main-title" class="text-4xl md:text-5xl font-bold text-green-800 drop-shadow-sm">Matematika Buah-Buahan</h1>
+    <p id="subtitle" class="text-lg text-green-600 mt-2">Belajar berhitung dengan buah!</p>
+   </header><!-- Menu -->
+   <main id="menu-screen" class="max-w-4xl mx-auto px-4 pb-12">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"><button onclick="startGame('add')" class="card-hover bg-red-100 border-4 border-red-300 rounded-3xl p-6 flex flex-col items-center gap-3"> <span class="text-5xl">🍎</span> <span class="text-xl font-bold text-red-700">Penjumlahan</span> <span class="text-3xl font-bold text-red-500">+</span> </button> <button onclick="startGame('sub')" class="card-hover bg-orange-100 border-4 border-orange-300 rounded-3xl p-6 flex flex-col items-center gap-3"> <span class="text-5xl">🍊</span> <span class="text-xl font-bold text-orange-700">Pengurangan</span> <span class="text-3xl font-bold text-orange-500">−</span> </button> <button onclick="startGame('mul')" class="card-hover bg-purple-100 border-4 border-purple-300 rounded-3xl p-6 flex flex-col items-center gap-3"> <span class="text-5xl">🍇</span> <span class="text-xl font-bold text-purple-700">Perkalian</span> <span class="text-3xl font-bold text-purple-500">×</span> </button> <button onclick="startGame('div')" class="card-hover bg-yellow-100 border-4 border-yellow-300 rounded-3xl p-6 flex flex-col items-center gap-3"> <span class="text-5xl">🍌</span> <span class="text-xl font-bold text-yellow-700">Pembagian</span> <span class="text-3xl font-bold text-yellow-600">÷</span> </button>
+    </div><!-- Materi Section -->
+    <section class="mt-10 bg-white/80 backdrop-blur rounded-3xl p-6 md:p-8 border-2 border-green-200">
+     <h2 class="text-2xl font-bold text-green-800 mb-4 text-center">📖 Materi Singkat</h2>
+     <div class="grid md:grid-cols-2 gap-4">
+      <div class="bg-red-50 rounded-2xl p-4 border border-red-200">
+       <h3 class="font-bold text-red-700 mb-2">🍎 Penjumlahan (+)</h3>
+       <p class="text-red-900 text-sm">Menggabungkan dua kelompok menjadi satu. Contoh: 3 apel + 2 apel = 5 apel</p>
+       <div class="mt-2 text-2xl text-center">
+        🍎🍎🍎 + 🍎🍎 = 5
+       </div>
+      </div>
+      <div class="bg-orange-50 rounded-2xl p-4 border border-orange-200">
+       <h3 class="font-bold text-orange-700 mb-2">🍊 Pengurangan (−)</h3>
+       <p class="text-orange-900 text-sm">Mengambil sebagian dari kelompok. Contoh: 5 jeruk − 2 jeruk = 3 jeruk</p>
+       <div class="mt-2 text-2xl text-center">
+        🍊🍊🍊🍊🍊 − 2 = 3
+       </div>
+      </div>
+      <div class="bg-purple-50 rounded-2xl p-4 border border-purple-200">
+       <h3 class="font-bold text-purple-700 mb-2">🍇 Perkalian (×)</h3>
+       <p class="text-purple-900 text-sm">Penjumlahan berulang. Contoh: 3 × 4 = 12 (3 kelompok, tiap kelompok 4 anggur)</p>
+       <div class="mt-2 text-2xl text-center">
+        🍇🍇🍇🍇 × 3 = 12
+       </div>
+      </div>
+      <div class="bg-yellow-50 rounded-2xl p-4 border border-yellow-200">
+       <h3 class="font-bold text-yellow-700 mb-2">🍌 Pembagian (÷)</h3>
+       <p class="text-yellow-900 text-sm">Membagi sama rata. Contoh: 8 pisang ÷ 2 = 4 pisang per kelompok</p>
+       <div class="mt-2 text-2xl text-center">
+        🍌🍌🍌🍌🍌🍌🍌🍌 ÷ 2 = 4
+       </div>
+      </div>
+     </div>
+    </section>
+   </main><!-- Game Screen -->
+   <div id="game-screen" class="hidden max-w-2xl mx-auto px-4 pb-12">
+    <div class="bg-white/90 backdrop-blur rounded-3xl p-6 md:p-8 border-2 border-green-200 shadow-xl">
+     <div class="flex justify-between items-center mb-6"><button onclick="backToMenu()" class="bg-green-100 hover:bg-green-200 text-green-700 font-bold px-4 py-2 rounded-xl flex items-center gap-2 transition"> <i data-lucide="arrow-left" style="width:20px;height:20px;"></i> Menu </button>
+      <div class="flex items-center gap-4"><span id="score-display" class="bg-yellow-100 text-yellow-800 font-bold px-4 py-2 rounded-xl">⭐ 0/0</span>
+      </div>
+     </div>
+     <div id="game-topic" class="text-center text-xl font-bold text-green-700 mb-2"></div><!-- Fruit Visual -->
+     <div id="fruit-visual" class="text-center text-3xl my-4 min-h-[50px] flex flex-wrap justify-center gap-1"></div><!-- Question -->
+     <div id="question-box" class="text-center my-6">
+      <p id="question-text" class="text-4xl md:text-5xl font-bold text-gray-800"></p>
+     </div><!-- Answer Options -->
+     <div id="options-grid" class="grid grid-cols-2 gap-3 mt-6"></div><!-- Feedback -->
+     <div id="feedback" class="text-center mt-4 text-xl font-bold min-h-[40px]"></div><!-- Next Button -->
+     <div id="next-btn-wrap" class="hidden text-center mt-4"><button onclick="nextQuestion()" class="bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-3 rounded-xl text-lg transition">Soal Berikutnya →</button>
+     </div><!-- Result Screen -->
+     <div id="result-screen" class="hidden text-center py-6">
+      <div class="text-6xl mb-4">
+       🎉
+      </div>
+      <h2 id="result-title" class="text-3xl font-bold text-green-800 mb-2"></h2>
+      <p id="result-detail" class="text-lg text-green-600 mb-6"></p>
+      <div class="flex gap-3 justify-center flex-wrap"><button onclick="restartGame()" class="bg-green-500 hover:bg-green-600 text-white font-bold px-6 py-3 rounded-xl transition">🔄 Main Lagi</button> <button onclick="backToMenu()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold px-6 py-3 rounded-xl transition">📋 Menu Utama</button>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+  const fruits = { add: '🍎', sub: '🍊', mul: '🍇', div: '🍌' };
+  const topics = { add: 'Penjumlahan', sub: 'Pengurangan', mul: 'Perkalian', div: 'Pembagian' };
+  const ops = { add: '+', sub: '−', mul: '×', div: '÷' };
+
+  let currentMode = '';
+  let questions = [];
+  let currentQ = 0;
+  let score = 0;
+  let totalQ = 10;
+  let answered = false;
+
+  function generateQuestion(mode) {
+    let a, b, answer;
+    if (mode === 'add') {
+      a = Math.floor(Math.random() * 20) + 1;
+      b = Math.floor(Math.random() * 20) + 1;
+      answer = a + b;
+    } else if (mode === 'sub') {
+      a = Math.floor(Math.random() * 20) + 5;
+      b = Math.floor(Math.random() * a) + 1;
+      answer = a - b;
+    } else if (mode === 'mul') {
+      a = Math.floor(Math.random() * 10) + 1;
+      b = Math.floor(Math.random() * 10) + 1;
+      answer = a * b;
+    } else {
+      b = Math.floor(Math.random() * 9) + 2;
+      answer = Math.floor(Math.random() * 10) + 1;
+      a = b * answer;
+    }
+    // Generate wrong options
+    let options = new Set([answer]);
+    while (options.size < 4) {
+      let wrong = answer + (Math.floor(Math.random() * 11) - 5);
+      if (wrong !== answer && wrong >= 0) options.add(wrong);
+    }
+    return { a, b, answer, options: [...options].sort(() => Math.random() - 0.5) };
+  }
+
+  function startGame(mode) {
+    currentMode = mode;
+    currentQ = 0;
+    score = 0;
+    questions = Array.from({ length: totalQ }, () => generateQuestion(mode));
+    document.getElementById('menu-screen').classList.add('hidden');
+    document.getElementById('game-screen').classList.remove('hidden');
+    document.getElementById('result-screen').classList.add('hidden');
+    showQuestion();
+    lucide.createIcons();
+  }
+
+  function showQuestion() {
+    answered = false;
+    const q = questions[currentQ];
+    document.getElementById('game-topic').textContent = `${fruits[currentMode]} ${topics[currentMode]} - Soal ${currentQ + 1}/${totalQ}`;
+    document.getElementById('question-text').textContent = `${q.a} ${ops[currentMode]} ${q.b} = ?`;
+    document.getElementById('score-display').textContent = `⭐ ${score}/${currentQ}`;
+    document.getElementById('feedback').textContent = '';
+    document.getElementById('next-btn-wrap').classList.add('hidden');
+
+    // Fruit visual
+    const visual = document.getElementById('fruit-visual');
+    const fruit = fruits[currentMode];
+    let fruitHtml = '';
+    if (currentMode === 'add') {
+      fruitHtml = fruit.repeat(Math.min(q.a, 10)) + ' + ' + fruit.repeat(Math.min(q.b, 10));
+    } else if (currentMode === 'sub') {
+      fruitHtml = fruit.repeat(Math.min(q.a, 10)) + ' − ' + q.b;
+    } else if (currentMode === 'mul') {
+      for (let i = 0; i < Math.min(q.a, 5); i++) fruitHtml += fruit.repeat(Math.min(q.b, 5)) + ' ';
+    } else {
+      fruitHtml = fruit.repeat(Math.min(q.a, 12)) + ' ÷ ' + q.b;
+    }
+    visual.innerHTML = `<span class="fruit-bounce">${fruitHtml}</span>`;
+
+    // Options
+    const grid = document.getElementById('options-grid');
+    grid.innerHTML = q.options.map(opt => `
+      <button onclick="checkAnswer(${opt}, this)" class="option-btn bg-green-50 hover:bg-green-100 border-3 border-green-300 rounded-2xl py-4 text-2xl font-bold text-green-800 transition border-2">
+        ${opt}
+      </button>
+    `).join('');
+  }
+
+  function checkAnswer(selected, btn) {
+    if (answered) return;
+    answered = true;
+    const q = questions[currentQ];
+    const allBtns = document.querySelectorAll('.option-btn');
+
+    if (selected === q.answer) {
+      score++;
+      btn.classList.add('correct-flash', 'bg-green-400', 'text-white', 'border-green-500');
+      btn.classList.remove('bg-green-50');
+      document.getElementById('feedback').innerHTML = '<span class="text-green-600">✅ Benar! Hebat!</span>';
+    } else {
+      btn.classList.add('wrong-shake', 'bg-red-400', 'text-white', 'border-red-500');
+      btn.classList.remove('bg-green-50');
+      allBtns.forEach(b => {
+        if (parseInt(b.textContent) === q.answer) {
+          b.classList.add('bg-green-400', 'text-white', 'border-green-500');
+          b.classList.remove('bg-green-50');
+        }
+      });
+      document.getElementById('feedback').innerHTML = `<span class="text-red-500">❌ Jawaban yang benar: ${q.answer}</span>`;
+    }
+
+    allBtns.forEach(b => b.disabled = true);
+    document.getElementById('score-display').textContent = `⭐ ${score}/${currentQ + 1}`;
+
+    if (currentQ < totalQ - 1) {
+      document.getElementById('next-btn-wrap').classList.remove('hidden');
+    } else {
+      setTimeout(showResult, 1500);
+    }
+  }
+
+  function nextQuestion() {
+    currentQ++;
+    showQuestion();
+  }
+
+  function showResult() {
+    document.getElementById('question-box').classList.add('hidden');
+    document.getElementById('options-grid').innerHTML = '';
+    document.getElementById('fruit-visual').innerHTML = '';
+    document.getElementById('feedback').textContent = '';
+    document.getElementById('next-btn-wrap').classList.add('hidden');
+    document.getElementById('game-topic').textContent = '';
+
+    const pct = Math.round(score / totalQ * 100);
+    let emoji = pct >= 80 ? '🏆' : pct >= 60 ? '👏' : '💪';
+    document.getElementById('result-screen').classList.remove('hidden');
+    document.getElementById('result-title').textContent = `${emoji} Skor: ${score}/${totalQ}`;
+    document.getElementById('result-detail').textContent = pct >= 80 ? 'Luar biasa! Kamu sangat pintar!' : pct >= 60 ? 'Bagus! Terus berlatih ya!' : 'Jangan menyerah! Coba lagi!';
+  }
+
+  function restartGame() {
+    document.getElementById('question-box').classList.remove('hidden');
+    document.getElementById('result-screen').classList.add('hidden');
+    startGame(currentMode);
+  }
+
+  function backToMenu() {
+    document.getElementById('menu-screen').classList.remove('hidden');
+    document.getElementById('game-screen').classList.add('hidden');
+    document.getElementById('question-box').classList.remove('hidden');
+    document.getElementById('result-screen').classList.add('hidden');
+  }
+
+  // Element SDK
+  const defaultConfig = {
+    main_title: 'Matematika Buah-Buahan',
+    subtitle: 'Belajar berhitung dengan buah!',
+    background_color: '#fff8e1',
+    surface_color: '#ffffff',
+    text_color: '#2e7d32',
+    primary_action: '#4caf50',
+    secondary_action: '#ff9800',
+    font_family: 'Fredoka',
+    font_size: 16
+  };
+
+  function applyConfig(config) {
+    document.getElementById('main-title').textContent = config.main_title || defaultConfig.main_title;
+    document.getElementById('subtitle').textContent = config.subtitle || defaultConfig.subtitle;
+
+    const app = document.getElementById('app');
+    app.style.background = `linear-gradient(135deg, ${config.background_color || defaultConfig.background_color} 0%, #c8e6c9 50%, #ffecb3 100%)`;
+
+    document.body.style.fontFamily = `${config.font_family || defaultConfig.font_family}, sans-serif`;
+    const baseSize = config.font_size || defaultConfig.font_size;
+    document.getElementById('main-title').style.fontSize = `${baseSize * 2.5}px`;
+    document.getElementById('subtitle').style.fontSize = `${baseSize * 1.1}px`;
+  }
+
+  window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (config) => { applyConfig(config); },
+    mapToCapabilities: (config) => ({
+      recolorables: [
+        { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+        { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+        { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+        { get: () => config.primary_action || defaultConfig.primary_action, set: (v) => { config.primary_action = v; window.elementSdk.setConfig({ primary_action: v }); } },
+        { get: () => config.secondary_action || defaultConfig.secondary_action, set: (v) => { config.secondary_action = v; window.elementSdk.setConfig({ secondary_action: v }); } }
+      ],
+      borderables: [],
+      fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); } },
+      fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); } }
+    }),
+    mapToEditPanelValues: (config) => new Map([
+      ['main_title', config.main_title || defaultConfig.main_title],
+      ['subtitle', config.subtitle || defaultConfig.subtitle]
+    ])
+  });
+
+  lucide.createIcons();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a0564e5c299120c7',t:'MTc4MDQwMTcxNA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
